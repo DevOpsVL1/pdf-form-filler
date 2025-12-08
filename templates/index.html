@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}Home - PDF Form Filler Platform{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-lg-10">
+        <!-- Hero Section -->
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold mb-3">
+                <i class="bi bi-file-earmark-pdf-fill text-primary"></i>
+                PDF Form Filler Platform
+            </h1>
+            <p class="lead text-muted">
+                Fill Malaysian banking forms quickly and accurately with our automated system
+            </p>
+        </div>
+
+        <!-- Features -->
+        <div class="row mb-5">
+            <div class="col-md-4">
+                <div class="text-center p-4">
+                    <div class="feature-icon bg-primary bg-gradient text-white rounded-circle mb-3 mx-auto" 
+                         style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
+                        <i class="bi bi-capslock" style="font-size: 2rem;"></i>
+                    </div>
+                    <h5>Automatic UPPERCASE</h5>
+                    <p class="text-muted">All text automatically converted to capital letters</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center p-4">
+                    <div class="feature-icon bg-success bg-gradient text-white rounded-circle mb-3 mx-auto" 
+                         style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
+                        <i class="bi bi-check2-circle" style="font-size: 2rem;"></i>
+                    </div>
+                    <h5>Character Limits</h5>
+                    <p class="text-muted">Real-time validation with character counters</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center p-4">
+                    <div class="feature-icon bg-info bg-gradient text-white rounded-circle mb-3 mx-auto" 
+                         style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
+                        <i class="bi bi-lightning-charge" style="font-size: 2rem;"></i>
+                    </div>
+                    <h5>Instant Generation</h5>
+                    <p class="text-muted">Generate filled PDFs in seconds</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Selection Cards -->
+        <div class="row g-4">
+            <!-- CIF-1 Form Card -->
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm hover-card">
+                    <div class="card-body text-center p-5">
+                        <div class="mb-4">
+                            <i class="bi bi-person-badge text-primary" style="font-size: 4rem;"></i>
+                        </div>
+                        <h3 class="card-title mb-3">CIF-1 Form</h3>
+                        <p class="card-text text-muted mb-4">
+                            Customer Information Form<br>
+                            Complete personal details and contact information
+                        </p>
+                        <a href="/cif1" class="btn btn-primary btn-lg">
+                            <i class="bi bi-pencil-square"></i> Fill CIF-1 Form
+                        </a>
+                    </div>
+                    <div class="card-footer bg-light">
+                        <small class="text-muted">
+                            <i class="bi bi-info-circle"></i> 
+                            Includes personal details, address, employment info
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personal Financing Form Card -->
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm hover-card">
+                    <div class="card-body text-center p-5">
+                        <div class="mb-4">
+                            <i class="bi bi-cash-coin text-success" style="font-size: 4rem;"></i>
+                        </div>
+                        <h3 class="card-title mb-3">Personal Financing</h3>
+                        <p class="card-text text-muted mb-4">
+                            Personal Financing Application Form<br>
+                            Submit your financing application details
+                        </p>
+                        <a href="/pembiayaan" class="btn btn-success btn-lg">
+                            <i class="bi bi-pencil-square"></i> Fill Financing Form
+                        </a>
+                    </div>
+                    <div class="card-footer bg-light">
+                        <small class="text-muted">
+                            <i class="bi bi-info-circle"></i> 
+                            Includes financial details and loan information
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Information Section -->
+        <div class="alert alert-info mt-5" role="alert">
+            <h5 class="alert-heading">
+                <i class="bi bi-lightbulb"></i> How It Works
+            </h5>
+            <hr>
+            <ol class="mb-0">
+                <li>Select the form you want to fill</li>
+                <li>Enter your information (automatically converted to UPPERCASE)</li>
+                <li>Character counters show you how much space is left</li>
+                <li>Click "Generate PDF" to download your filled form</li>
+            </ol>
+        </div>
+
+        <!-- Security Note -->
+        <div class="text-center mt-4">
+            <p class="text-muted">
+                <i class="bi bi-shield-lock-fill text-success"></i>
+                Your data is processed securely and not stored on our servers
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hover-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+    }
+</style>
+{% endblock %}

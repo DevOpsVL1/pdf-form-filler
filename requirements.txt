@@ -1,0 +1,9 @@
+# PDF Form Filler Platform - Python Dependencies
+# Install with: pip install -r requirements.txt
+
+Flask==3.0.0
+Werkzeug==3.0.1
+reportlab==4.0.7
+pypdf==3.17.4
+gunicorn==21.2.0
+python-dotenv==1.0.0

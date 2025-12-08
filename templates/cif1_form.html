@@ -1,0 +1,528 @@
+{% extends "base.html" %}
+
+{% block title %}CIF-1 Form - PDF Form Filler{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">
+                    <i class="bi bi-person-badge"></i> CIF-1 Customer Information Form
+                </h3>
+            </div>
+            <div class="card-body">
+                <form id="cif1Form">
+                    <!-- Section A: Personal Details -->
+                    <div class="section-header mb-4">
+                        <h4 class="text-primary">
+                            <i class="bi bi-person-circle"></i> Section A: Personal Details
+                        </h4>
+                        <hr>
+                    </div>
+
+                    <!-- Country of Origin -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Country of Origin</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="country_origin" value="MY MALAYSIA" id="countryMY">
+                                <label class="form-check-label" for="countryMY">My Malaysia</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="country_origin" value="LAIN-LAIN" id="countryOthers">
+                                <label class="form-check-label" for="countryOthers">Others (Lain-lain)</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6" id="countryOtherField" style="display: none;">
+                            <label class="form-label fw-bold">Specify Country</label>
+                            <input type="text" class="form-control" name="country_origin_other" maxlength="30" data-limit="30">
+                            <small class="char-counter text-muted">0/30 characters</small>
+                        </div>
+                    </div>
+
+                    <!-- ID Type -->
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">ID Type (Jenis Pengenalan Diri)</label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="id_type" value="KAD PENGENALAN BARU" id="idNew">
+                                        <label class="form-check-label" for="idNew">Kad Pengenalan Baru</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="id_type" value="SIJIL KELAHIRAN" id="idBirth">
+                                        <label class="form-check-label" for="idBirth">Sijil Kelahiran</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="id_type" value="PASPORT" id="idPassport">
+                                        <label class="form-check-label" for="idPassport">Pasport</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="id_type" value="KP TENTERA" id="idMilitary">
+                                        <label class="form-check-label" for="idMilitary">KP Tentera</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="id_type" value="KAD PENGENALAN LAMA" id="idOld">
+                                        <label class="form-check-label" for="idOld">Kad Pengenalan Lama</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="id_type" value="KP POLIS" id="idPolice">
+                                        <label class="form-check-label" for="idPolice">KP Polis</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Citizenship -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Citizenship (Kewarganegaraan)</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="citizenship" value="WARGANEGARA" id="citizenYes">
+                                <label class="form-check-label" for="citizenYes">Warganegara</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="citizenship" value="BUKAN WARGANEGARA" id="citizenNo">
+                                <label class="form-check-label" for="citizenNo">Bukan warganegara</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="citizenship" value="PENDUDUK TETAP" id="citizenPR">
+                                <label class="form-check-label" for="citizenPR">Penduduk Tetap</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">
+                                IC Number <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="ic_number" 
+                                   maxlength="{{ limits.ic_number }}" data-limit="{{ limits.ic_number }}" required>
+                            <small class="char-counter text-muted">0/{{ limits.ic_number }} characters</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">
+                                Old IC Number
+                            </label>
+                            <input type="text" class="form-control" name="old_ic_number" 
+                                   maxlength="12" data-limit="12">
+                            <small class="char-counter text-muted">0/12 characters</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">
+                                Date of Birth
+                            </label>
+                            <input type="text" class="form-control" name="date_of_birth" 
+                                   placeholder="DD-MM-YYYY" maxlength="10" data-limit="10">
+                            <small class="char-counter text-muted">0/10 characters</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">
+                                Number of Dependents
+                            </label>
+                            <input type="number" class="form-control" name="num_dependents" 
+                                   min="0" max="99" maxlength="2">
+                            <small class="text-muted">0-99</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">
+                                Name (as per IC) <span class="text-danger">*</span>
+                            </label>
+                            <textarea class="form-control" name="name_ic" rows="2"
+                                      maxlength="{{ limits.name_ic }}" data-limit="{{ limits.name_ic }}" required></textarea>
+                            <small class="char-counter text-muted">0/{{ limits.name_ic }} characters (21 boxes × 4 rows)</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Title</label>
+                            <select class="form-select" name="title">
+                                <option value="">Select...</option>
+                                <option value="ENCIK">Encik</option>
+                                <option value="PUAN">Puan</option>
+                                <option value="CIK">Cik</option>
+                                <option value="DR.">Dr.</option>
+                                <option value="DATO/DATIN">Dato/Datin</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Gender</label>
+                            <select class="form-select" name="gender">
+                                <option value="">Select...</option>
+                                <option value="LELAKI">Lelaki</option>
+                                <option value="PEREMPUAN">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Marital Status</label>
+                            <select class="form-select" name="marital_status">
+                                <option value="">Select...</option>
+                                <option value="BUJANG">Bujang</option>
+                                <option value="BERKAHWIN">Berkahwin</option>
+                                <option value="JANDA/DUDA">Janda/Duda</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Race</label>
+                            <select class="form-select" name="race">
+                                <option value="">Select...</option>
+                                <option value="MELAYU">Melayu</option>
+                                <option value="CINA">Cina</option>
+                                <option value="INDIA">India</option>
+                                <option value="LAIN-LAIN">Lain-lain</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Religion -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Religion (Agama)</label>
+                            <select class="form-select" name="religion">
+                                <option value="">Select...</option>
+                                <option value="ISLAM">Islam</option>
+                                <option value="BUDDHA">Buddha</option>
+                                <option value="HINDU">Hindu</option>
+                                <option value="KRISTIAN">Kristian</option>
+                                <option value="LAIN-LAIN">Lain-lain</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Education -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Education Level (Pendidikan)</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="education" value="RENDAH" id="eduPrimary">
+                                <label class="form-check-label" for="eduPrimary">Rendah</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="education" value="MENENGAH" id="eduSecondary">
+                                <label class="form-check-label" for="eduSecondary">Menengah</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="education" value="TINGGI" id="eduTertiary">
+                                <label class="form-check-label" for="eduTertiary">Tinggi</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="education" value="PROFESIONAL" id="eduProfessional">
+                                <label class="form-check-label" for="eduProfessional">Profesional</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="education" value="LAIN-LAIN" id="eduOthers">
+                                <label class="form-check-label" for="eduOthers">Lain-lain (Others)</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6" id="educationOtherField" style="display: none;">
+                            <label class="form-label fw-bold">Specify Education</label>
+                            <input type="text" class="form-control" name="education_other" maxlength="30" data-limit="30">
+                            <small class="char-counter text-muted">0/30 characters</small>
+                        </div>
+                    </div>
+
+                    <!-- Customer Category -->
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Customer Category (Kategori Pelanggan)</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="customer_category" value="ANGGOTA CO-OPBANK PERTAMA" id="catMember">
+                                <label class="form-check-label" for="catMember">Anggota Co-opbank Pertama</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="customer_category" value="WARGA KERJA CO-OPBANK PERTAMA" id="catStaff">
+                                <label class="form-check-label" for="catStaff">Warga Kerja Co-opbank Pertama</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="customer_category" value="BUKAN ANGGOTA TETAPI LAYAK MENJADI ANGGOTA" id="catNonMember">
+                                <label class="form-check-label" for="catNonMember">Bukan Anggota Tetapi Layak Menjadi Anggota</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="customer_category" value="KELUARGA TERDEKAT WARGA KERJA" id="catFamily">
+                                <label class="form-check-label" for="catFamily">Keluarga Terdekat Warga Kerja</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Mother's Maiden Name</label>
+                            <input type="text" class="form-control" name="mother_maiden_name" 
+                                   maxlength="{{ limits.mother_maiden_name }}" data-limit="{{ limits.mother_maiden_name }}">
+                            <small class="char-counter text-muted">0/{{ limits.mother_maiden_name }} characters (21 boxes × 2 rows)</small>
+                        </div>
+                    </div>
+
+                    <!-- Section B: Contact Details -->
+                    <div class="section-header mb-4 mt-5">
+                        <h4 class="text-primary">
+                            <i class="bi bi-house-door"></i> Section B: Contact Details
+                        </h4>
+                        <hr>
+                    </div>
+
+                    <h5 class="mb-3">Residential Address</h5>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Address</label>
+                            <textarea class="form-control" name="residential_address" rows="3"
+                                      maxlength="{{ limits.residential_address }}" data-limit="{{ limits.residential_address }}"></textarea>
+                            <small class="char-counter text-muted">0/{{ limits.residential_address }} characters (21 boxes × 4 rows)</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Postcode</label>
+                            <input type="text" class="form-control" name="residential_postcode" 
+                                   maxlength="{{ limits.residential_postcode }}" data-limit="{{ limits.residential_postcode }}">
+                            <small class="char-counter text-muted">0/{{ limits.residential_postcode }} characters</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">City</label>
+                            <input type="text" class="form-control" name="residential_city" 
+                                   maxlength="{{ limits.residential_city }}" data-limit="{{ limits.residential_city }}">
+                            <small class="char-counter text-muted">0/{{ limits.residential_city }} characters</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">State</label>
+                            <input type="text" class="form-control" name="residential_state" 
+                                   maxlength="{{ limits.residential_state }}" data-limit="{{ limits.residential_state }}">
+                            <small class="char-counter text-muted">0/{{ limits.residential_state }} characters</small>
+                        </div>
+                    </div>
+
+                    <!-- Type of Ownership -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Type of Ownership (Jenis Pemilikan)</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="ownership_type" value="SENDIRI" id="ownOwn">
+                                <label class="form-check-label" for="ownOwn">Sendiri (Own)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="ownership_type" value="SEWA" id="ownRent">
+                                <label class="form-check-label" for="ownRent">Sewa (Rent)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="ownership_type" value="LAIN-LAIN" id="ownOthers">
+                                <label class="form-check-label" for="ownOthers">Lain-lain (Others)</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6" id="ownershipOtherField" style="display: none;">
+                            <label class="form-label fw-bold">Specify Ownership Type</label>
+                            <input type="text" class="form-control" name="ownership_type_other" maxlength="30" data-limit="30">
+                            <small class="char-counter text-muted">0/30 characters</small>
+                        </div>
+                    </div>
+
+                    <h5 class="mb-3 mt-4">Correspondence Address</h5>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Address</label>
+                            <textarea class="form-control" name="correspondence_address" rows="2"
+                                      maxlength="{{ limits.correspondence_address }}" data-limit="{{ limits.correspondence_address }}"></textarea>
+                            <small class="char-counter text-muted">0/{{ limits.correspondence_address }} characters (21 boxes × 3 rows)</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Postcode</label>
+                            <input type="text" class="form-control" name="correspondence_postcode" 
+                                   maxlength="{{ limits.correspondence_postcode }}" data-limit="{{ limits.correspondence_postcode }}">
+                            <small class="char-counter text-muted">0/{{ limits.correspondence_postcode }} characters</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">City</label>
+                            <input type="text" class="form-control" name="correspondence_city" 
+                                   maxlength="{{ limits.correspondence_city }}" data-limit="{{ limits.correspondence_city }}">
+                            <small class="char-counter text-muted">0/{{ limits.correspondence_city }} characters</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">State</label>
+                            <input type="text" class="form-control" name="correspondence_state" 
+                                   maxlength="{{ limits.correspondence_state }}" data-limit="{{ limits.correspondence_state }}">
+                            <small class="char-counter text-muted">0/{{ limits.correspondence_state }} characters</small>
+                        </div>
+                    </div>
+
+                    <h5 class="mb-3 mt-4">Contact Numbers</h5>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Home Phone</label>
+                            <input type="text" class="form-control" name="tel_home" 
+                                   maxlength="{{ limits.tel_home }}" data-limit="{{ limits.tel_home }}">
+                            <small class="char-counter text-muted">0/{{ limits.tel_home }} characters</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Office Phone</label>
+                            <input type="text" class="form-control" name="tel_office" 
+                                   maxlength="{{ limits.tel_office }}" data-limit="{{ limits.tel_office }}">
+                            <small class="char-counter text-muted">0/{{ limits.tel_office }} characters</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Mobile Phone</label>
+                            <input type="text" class="form-control" name="tel_mobile" 
+                                   maxlength="{{ limits.tel_mobile }}" data-limit="{{ limits.tel_mobile }}">
+                            <small class="char-counter text-muted">0/{{ limits.tel_mobile }} characters</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Fax</label>
+                            <input type="text" class="form-control" name="fax" 
+                                   maxlength="{{ limits.fax }}" data-limit="{{ limits.fax }}">
+                            <small class="char-counter text-muted">0/{{ limits.fax }} characters</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Email Address</label>
+                            <input type="email" class="form-control" name="email" 
+                                   maxlength="{{ limits.email }}" data-limit="{{ limits.email }}">
+                            <small class="char-counter text-muted">0/{{ limits.email }} characters (15 boxes × 2 rows)</small>
+                        </div>
+                    </div>
+
+                    <!-- Section C: Employment -->
+                    <div class="section-header mb-4 mt-5">
+                        <h4 class="text-primary">
+                            <i class="bi bi-briefcase"></i> Section C: Employment Information
+                        </h4>
+                        <hr>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Employer Name</label>
+                            <input type="text" class="form-control" name="employer_name" 
+                                   maxlength="{{ limits.employer_name }}" data-limit="{{ limits.employer_name }}">
+                            <small class="char-counter text-muted">0/{{ limits.employer_name }} characters (21 boxes × 2 rows)</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Employer Address</label>
+                            <textarea class="form-control" name="employer_address" rows="2"
+                                      maxlength="{{ limits.employer_address }}" data-limit="{{ limits.employer_address }}"></textarea>
+                            <small class="char-counter text-muted">0/{{ limits.employer_address }} characters (21 boxes × 3 rows)</small>
+                        </div>
+                    </div>
+
+                    <!-- Date Started Work -->
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Date Started Work</label>
+                            <input type="text" class="form-control" name="date_started_work" 
+                                   placeholder="DD-MM-YYYY" maxlength="10" data-limit="10">
+                            <small class="char-counter text-muted">0/10 characters</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Position/Grade (Pangkat)</label>
+                            <input type="text" class="form-control" name="position_grade" 
+                                   maxlength="8" data-limit="8">
+                            <small class="char-counter text-muted">0/8 characters</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Employment Status</label>
+                            <input type="text" class="form-control" name="employment_status" 
+                                   maxlength="20" data-limit="20">
+                            <small class="char-counter text-muted">0/20 characters</small>
+                        </div>
+                    </div>
+
+                    <!-- Employment Sector -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Employment Sector (Sektor Pekerjaan)</label>
+                            <select class="form-select" name="employment_sector">
+                                <option value="">Select...</option>
+                                <option value="KAKITANGAN KERAJAAN">Kakitangan Kerajaan</option>
+                                <option value="PERTANIAN">Pertanian</option>
+                                <option value="PENDIDIKAN">Pendidikan</option>
+                                <option value="KEWANGAN">Kewangan</option>
+                                <option value="KESIHATAN">Kesihatan</option>
+                                <option value="PEMBUATAN">Pembuatan</option>
+                                <option value="PERKHIDMATAN">Perkhidmatan</option>
+                                <option value="PERNIAGAAN">Perniagaan</option>
+                                <option value="LAIN-LAIN">Lain-lain</option>
+                                <option value="TIDAK BERKENAAN">Tidak Berkenaan</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Occupation (Pekerjaan)</label>
+                            <select class="form-select" name="occupation">
+                                <option value="">Select...</option>
+                                <option value="KERANI">Kerani</option>
+                                <option value="PEGAWAI">Pegawai</option>
+                                <option value="PENGURUS">Pengurus</option>
+                                <option value="PROFESIONAL">Profesional</option>
+                                <option value="PENDIDIK">Pendidik</option>
+                                <option value="PELAJAR">Pelajar</option>
+                                <option value="LAIN-LAIN">Lain-lain</option>
+                                <option value="TIDAK BERKENAAN">Tidak Berkenaan</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Income Range -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Income Range (Julat Pendapatan)</label>
+                            <select class="form-select" name="income_range">
+                                <option value="">Select...</option>
+                                <option value="BAWAH RM 1,000">Bawah RM 1,000</option>
+                                <option value="RM 1,000 - RM 3,000">RM 1,000 - RM 3,000</option>
+                                <option value="RM 3,001 - RM 5,000">RM 3,001 - RM 5,000</option>
+                                <option value="MELEBIHI RM 5,000">Melebihi RM 5,000</option>
+                                <option value="TIDAK BERKENAAN">Tidak Berkenaan</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg" id="generateBtn">
+                            <i class="bi bi-file-earmark-pdf"></i> Generate PDF
+                        </button>
+                    </div>
+
+                    <!-- Loading Spinner -->
+                    <div id="loadingSpinner" class="text-center mt-3" style="display: none;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Generating PDF...</p>
+                    </div>
+
+                    <!-- Error Alert -->
+                    <div id="errorAlert" class="alert alert-danger mt-3" role="alert" style="display: none;"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/cif1.js') }}"></script>
+{% endblock %}

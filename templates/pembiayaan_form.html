@@ -1,0 +1,632 @@
+{% extends "base.html" %}
+
+{% block title %}Personal Financing Form - PDF Form Filler{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white">
+                <h3 class="mb-0">
+                    <i class="bi bi-cash-coin"></i> Personal Financing Application Form
+                </h3>
+            </div>
+            <div class="card-body">
+                <form id="pembiayaanForm">
+                    <!-- Top Section: Financing Details -->
+                    <div class="section-header mb-4">
+                        <h4 class="text-success">
+                            <i class="bi bi-cash-stack"></i> Financing Details
+                        </h4>
+                        <hr>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Financing Amount (RM)</label>
+                            <input type="number" class="form-control" name="financing_amount" 
+                                   maxlength="10" data-limit="10">
+                            <small class="text-muted">Maximum 10 digits</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Tenure (months)</label>
+                            <input type="number" class="form-control" name="financing_tenure" 
+                                   maxlength="3" data-limit="3">
+                            <small class="text-muted">Maximum 3 digits</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Membership Number</label>
+                            <input type="text" class="form-control" name="membership_number" 
+                                   maxlength="14" data-limit="14">
+                            <small class="char-counter text-muted">0/14 characters</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Repayment Method (Cara Bayaran Balik)</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="repayment_method" value="BIRO" id="repayBiro">
+                                <label class="form-check-label" for="repayBiro">Biro</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="repayment_method" value="GAJIAN / SALARY" id="repaySalary">
+                                <label class="form-check-label" for="repaySalary">Gajian / Salary</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="repayment_method" value="TUNAI / CASH" id="repayCash">
+                                <label class="form-check-label" for="repayCash">Tunai / Cash</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="repayment_method" value="LAIN-LAIN / OTHERS" id="repayOthers">
+                                <label class="form-check-label" for="repayOthers">Lain-lain / Others</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6" id="repaymentOtherField" style="display: none;">
+                            <label class="form-label fw-bold">Specify Repayment Method</label>
+                            <input type="text" class="form-control" name="repayment_method_other" maxlength="30" data-limit="30">
+                            <small class="char-counter text-muted">0/30 characters</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Financing Type (Jenis Pembiayaan)</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="financing_type" value="PERSENDIRIAN AL-AMAL" id="finTypeAlAmal">
+                                <label class="form-check-label" for="finTypeAlAmal">Persendirian Al-Amal</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="financing_type" value="LESTARI" id="finTypeLestari">
+                                <label class="form-check-label" for="finTypeLestari">Lestari</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="financing_type" value="LAIN-LAIN / OTHERS" id="finTypeOthers">
+                                <label class="form-check-label" for="finTypeOthers">Lain-lain / Others</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6" id="financingTypeOtherField" style="display: none;">
+                            <label class="form-label fw-bold">Specify Financing Type</label>
+                            <input type="text" class="form-control" name="financing_type_other" maxlength="30" data-limit="30">
+                            <small class="char-counter text-muted">0/30 characters</small>
+                        </div>
+                    </div>
+
+                    <!-- Personal Information -->
+                    <div class="section-header mb-4">
+                        <h4 class="text-success">
+                            <i class="bi bi-person-circle"></i> Personal Information
+                        </h4>
+                        <hr>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">
+                                IC Number <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="ic_number" 
+                                   maxlength="{{ limits.ic_number }}" data-limit="{{ limits.ic_number }}" required>
+                            <small class="char-counter text-muted">0/{{ limits.ic_number }} characters</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">
+                                Full Name <span class="text-danger">*</span>
+                            </label>
+                            <textarea class="form-control" name="name" rows="2"
+                                      maxlength="{{ limits.name }}" data-limit="{{ limits.name }}" required></textarea>
+                            <small class="char-counter text-muted">0/{{ limits.name }} characters</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Address</label>
+                            <textarea class="form-control" name="address" rows="3"
+                                      maxlength="{{ limits.address }}" data-limit="{{ limits.address }}"></textarea>
+                            <small class="char-counter text-muted">0/{{ limits.address }} characters</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Postcode</label>
+                            <input type="text" class="form-control" name="postcode" 
+                                   maxlength="{{ limits.postcode }}" data-limit="{{ limits.postcode }}">
+                            <small class="char-counter text-muted">0/{{ limits.postcode }} characters</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">City</label>
+                            <input type="text" class="form-control" name="city" 
+                                   maxlength="{{ limits.city }}" data-limit="{{ limits.city }}">
+                            <small class="char-counter text-muted">0/{{ limits.city }} characters</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">State</label>
+                            <input type="text" class="form-control" name="state" 
+                                   maxlength="{{ limits.state }}" data-limit="{{ limits.state }}">
+                            <small class="char-counter text-muted">0/{{ limits.state }} characters</small>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="section-header mb-4 mt-4">
+                        <h4 class="text-success">
+                            <i class="bi bi-telephone"></i> Contact Information
+                        </h4>
+                        <hr>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Home Phone</label>
+                            <input type="text" class="form-control" name="tel_home" 
+                                   maxlength="{{ limits.tel_home }}" data-limit="{{ limits.tel_home }}">
+                            <small class="char-counter text-muted">0/{{ limits.tel_home }} characters</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Mobile Phone</label>
+                            <input type="text" class="form-control" name="tel_mobile" 
+                                   maxlength="{{ limits.tel_mobile }}" data-limit="{{ limits.tel_mobile }}">
+                            <small class="char-counter text-muted">0/{{ limits.tel_mobile }} characters</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Email Address</label>
+                            <input type="email" class="form-control" name="email" 
+                                   maxlength="{{ limits.email }}" data-limit="{{ limits.email }}">
+                            <small class="char-counter text-muted">0/{{ limits.email }} characters</small>
+                        </div>
+                    </div>
+
+                    <!-- Employment Information -->
+                    <div class="section-header mb-4 mt-4">
+                        <h4 class="text-success">
+                            <i class="bi bi-briefcase"></i> Employment Information
+                        </h4>
+                        <hr>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Employer Name</label>
+                            <input type="text" class="form-control" name="employer_name" 
+                                   maxlength="{{ limits.employer_name }}" data-limit="{{ limits.employer_name }}">
+                            <small class="char-counter text-muted">0/{{ limits.employer_name }} characters</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Employer Address</label>
+                            <textarea class="form-control" name="employer_address" rows="2"
+                                      maxlength="{{ limits.employer_address }}" data-limit="{{ limits.employer_address }}"></textarea>
+                            <small class="char-counter text-muted">0/{{ limits.employer_address }} characters</small>
+                        </div>
+                    </div>
+
+                    <!-- Financial Information -->
+                    <div class="section-header mb-4 mt-4">
+                        <h4 class="text-success">
+                            <i class="bi bi-cash-stack"></i> Financial Information
+                        </h4>
+                        <hr>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Monthly Income (RM)</label>
+                            <input type="text" class="form-control" name="monthly_income" 
+                                   placeholder="5000.00" maxlength="{{ limits.monthly_income }}" data-limit="{{ limits.monthly_income }}">
+                            <small class="char-counter text-muted">0/{{ limits.monthly_income }} characters</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Financing Amount (RM)</label>
+                            <input type="text" class="form-control" name="financing_amount" 
+                                   placeholder="50000.00" maxlength="{{ limits.financing_amount }}" data-limit="{{ limits.financing_amount }}">
+                            <small class="char-counter text-muted">0/{{ limits.financing_amount }} characters</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Financing Period (Years)</label>
+                            <input type="text" class="form-control" name="financing_period" 
+                                   placeholder="5" maxlength="{{ limits.financing_period }}" data-limit="{{ limits.financing_period }}">
+                            <small class="char-counter text-muted">0/{{ limits.financing_period }} characters</small>
+                        </div>
+                    </div>
+
+                    <!-- Section D: Spouse Information -->
+                    <div class="section-header mb-4 mt-5">
+                        <h4 class="text-success">
+                            <i class="bi bi-people"></i> Section D: Spouse Information
+                        </h4>
+                        <hr>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Spouse Name</label>
+                            <input type="text" class="form-control" name="spouse_name" 
+                                   maxlength="63" data-limit="63">
+                            <small class="char-counter text-muted">0/63 characters (21 boxes × 3 rows)</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Spouse Date of Birth</label>
+                            <input type="text" class="form-control" name="spouse_dob" 
+                                   placeholder="DD-MM-YYYY" maxlength="10" data-limit="10">
+                            <small class="char-counter text-muted">0/10 characters</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Spouse IC Number (New)</label>
+                            <input type="text" class="form-control" name="spouse_ic_new" 
+                                   maxlength="12" data-limit="12">
+                            <small class="char-counter text-muted">0/12 characters</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Spouse IC Number (Old)</label>
+                            <input type="text" class="form-control" name="spouse_ic_old" 
+                                   maxlength="8" data-limit="8">
+                            <small class="char-counter text-muted">0/8 characters</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Spouse Phone</label>
+                            <input type="tel" class="form-control" name="spouse_phone" 
+                                   maxlength="10" data-limit="10">
+                            <small class="char-counter text-muted">0/10 characters</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Spouse Employer Name & Address</label>
+                            <textarea class="form-control" name="spouse_employer_name_address" rows="3"
+                                      maxlength="80" data-limit="80"></textarea>
+                            <small class="char-counter text-muted">0/80 characters</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Spouse Employer Postcode</label>
+                            <input type="text" class="form-control" name="spouse_employer_postcode" 
+                                   maxlength="5" data-limit="5">
+                            <small class="char-counter text-muted">0/5 characters</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Spouse Employer City/State</label>
+                            <input type="text" class="form-control" name="spouse_employer_city_state" 
+                                   maxlength="40" data-limit="40">
+                            <small class="char-counter text-muted">0/40 characters</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Spouse Employer Office Phone</label>
+                            <input type="tel" class="form-control" name="spouse_employer_office_phone" 
+                                   maxlength="10" data-limit="10">
+                            <small class="char-counter text-muted">0/10 characters</small>
+                        </div>
+                    </div>
+
+                    <!-- Section E: Reference Information -->
+                    <div class="section-header mb-4 mt-5">
+                        <h4 class="text-success">
+                            <i class="bi bi-person-lines-fill"></i> Section E: Reference Information
+                        </h4>
+                        <hr>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Reference Name</label>
+                            <input type="text" class="form-control" name="reference_name" 
+                                   maxlength="80" data-limit="80">
+                            <small class="char-counter text-muted">0/80 characters</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Reference Address</label>
+                            <textarea class="form-control" name="reference_address" rows="3"
+                                      maxlength="80" data-limit="80"></textarea>
+                            <small class="char-counter text-muted">0/80 characters</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Reference Postcode</label>
+                            <input type="text" class="form-control" name="reference_postcode" 
+                                   maxlength="5" data-limit="5">
+                            <small class="char-counter text-muted">0/5 characters</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Reference City/State</label>
+                            <input type="text" class="form-control" name="reference_city_state" 
+                                   maxlength="40" data-limit="40">
+                            <small class="char-counter text-muted">0/40 characters</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Reference IC Number</label>
+                            <input type="text" class="form-control" name="reference_ic" 
+                                   maxlength="12" data-limit="12">
+                            <small class="char-counter text-muted">0/12 characters</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Reference Occupation</label>
+                            <input type="text" class="form-control" name="reference_occupation" 
+                                   maxlength="40" data-limit="40">
+                            <small class="char-counter text-muted">0/40 characters</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Relationship</label>
+                            <input type="text" class="form-control" name="reference_relationship" 
+                                   maxlength="40" data-limit="40">
+                            <small class="char-counter text-muted">0/40 characters</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Reference Mobile</label>
+                            <input type="tel" class="form-control" name="reference_mobile" 
+                                   maxlength="10" data-limit="10">
+                            <small class="char-counter text-muted">0/10 characters</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Reference Home Phone</label>
+                            <input type="tel" class="form-control" name="reference_home" 
+                                   maxlength="10" data-limit="10">
+                            <small class="char-counter text-muted">0/10 characters</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Reference Office Phone</label>
+                            <input type="tel" class="form-control" name="reference_office" 
+                                   maxlength="10" data-limit="10">
+                            <small class="char-counter text-muted">0/10 characters</small>
+                        </div>
+                    </div>
+
+                    <!-- Section F: Financial Background -->
+                    <div class="section-header mb-4 mt-5">
+                        <h4 class="text-success">
+                            <i class="bi bi-wallet2"></i> Section F: Financial Background
+                        </h4>
+                        <hr>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Monthly Salary (Gaji Bulanan Asas)</label>
+                            <input type="number" class="form-control" name="monthly_salary" 
+                                   maxlength="10" data-limit="10">
+                            <small class="text-muted">Monthly salary in RM</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Spouse Income (Pendapatan Suami/Isteri)</label>
+                            <input type="number" class="form-control" name="spouse_income" 
+                                   maxlength="10" data-limit="10">
+                            <small class="text-muted">Spouse monthly income in RM</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Other Income (Lain-lain Pendapatan)</label>
+                            <input type="number" class="form-control" name="other_income" 
+                                   maxlength="10" data-limit="10">
+                            <small class="text-muted">Other sources of income in RM</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Total Income (Jumlah Pendapatan)</label>
+                            <input type="number" class="form-control" name="total_income" 
+                                   maxlength="10" data-limit="10">
+                            <small class="text-muted">Total monthly income in RM</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Cost of Living (Sara Hidup)</label>
+                            <input type="number" class="form-control" name="cost_of_living" 
+                                   maxlength="10" data-limit="10">
+                            <small class="text-muted">Monthly living costs in RM</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Other Expenses (Lain-lain Perbelanjaan)</label>
+                            <input type="number" class="form-control" name="other_expenses" 
+                                   maxlength="10" data-limit="10">
+                            <small class="text-muted">Other monthly expenses in RM</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Total Expenses (Jumlah Perbelanjaan)</label>
+                            <input type="number" class="form-control" name="total_expenses" 
+                                   maxlength="10" data-limit="10">
+                            <small class="text-muted">Total monthly expenses in RM</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Total Monthly Installments (Jumlah Ansuran Bulanan)</label>
+                            <input type="number" class="form-control" name="total_monthly_installments" 
+                                   maxlength="10" data-limit="10">
+                            <small class="text-muted">Total loan installments in RM</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">House Rental (Sewa Rumah)</label>
+                            <input type="number" class="form-control" name="house_rental" 
+                                   maxlength="10" data-limit="10">
+                            <small class="text-muted">Monthly house rental in RM</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Net Income (Pendapatan Bersih)</label>
+                            <input type="number" class="form-control" name="net_income" 
+                                   maxlength="10" data-limit="10">
+                            <small class="text-muted">Net monthly income in RM</small>
+                        </div>
+                    </div>
+
+                    <!-- Bank/Financing Table -->
+                    <div class="section-header mb-3 mt-4">
+                        <h5 class="text-success">
+                            <i class="bi bi-bank"></i> Bank/Financing Information
+                        </h5>
+                    </div>
+
+                    <!-- Bank 1 -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light">
+                            <strong>Bank/Financing 1</strong>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col-md-6">
+                                    <label class="form-label">Bank Name (Nama Bank/Koperasi)</label>
+                                    <input type="text" class="form-control" name="bank1_name" 
+                                           maxlength="40" data-limit="40">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Financing Type (Jenis Pembiayaan)</label>
+                                    <input type="text" class="form-control" name="bank1_type" 
+                                           maxlength="40" data-limit="40">
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4">
+                                    <label class="form-label">Account Number (No. Akaun)</label>
+                                    <input type="text" class="form-control" name="bank1_account" 
+                                           maxlength="20" data-limit="20">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Monthly Payment (Bayaran Bulanan)</label>
+                                    <input type="number" class="form-control" name="bank1_monthly_payment" 
+                                           maxlength="10" data-limit="10">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Balance (Baki)</label>
+                                    <input type="number" class="form-control" name="bank1_balance" 
+                                           maxlength="10" data-limit="10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bank 2 -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light">
+                            <strong>Bank/Financing 2</strong>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col-md-6">
+                                    <label class="form-label">Bank Name (Nama Bank/Koperasi)</label>
+                                    <input type="text" class="form-control" name="bank2_name" 
+                                           maxlength="40" data-limit="40">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Financing Type (Jenis Pembiayaan)</label>
+                                    <input type="text" class="form-control" name="bank2_type" 
+                                           maxlength="40" data-limit="40">
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4">
+                                    <label class="form-label">Account Number (No. Akaun)</label>
+                                    <input type="text" class="form-control" name="bank2_account" 
+                                           maxlength="20" data-limit="20">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Monthly Payment (Bayaran Bulanan)</label>
+                                    <input type="number" class="form-control" name="bank2_monthly_payment" 
+                                           maxlength="10" data-limit="10">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Balance (Baki)</label>
+                                    <input type="number" class="form-control" name="bank2_balance" 
+                                           maxlength="10" data-limit="10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bank 3 -->
+                    <div class="card mb-3">
+                        <div class="card-header bg-light">
+                            <strong>Bank/Financing 3</strong>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col-md-6">
+                                    <label class="form-label">Bank Name (Nama Bank/Koperasi)</label>
+                                    <input type="text" class="form-control" name="bank3_name" 
+                                           maxlength="40" data-limit="40">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Financing Type (Jenis Pembiayaan)</label>
+                                    <input type="text" class="form-control" name="bank3_type" 
+                                           maxlength="40" data-limit="40">
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4">
+                                    <label class="form-label">Account Number (No. Akaun)</label>
+                                    <input type="text" class="form-control" name="bank3_account" 
+                                           maxlength="20" data-limit="20">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Monthly Payment (Bayaran Bulanan)</label>
+                                    <input type="number" class="form-control" name="bank3_monthly_payment" 
+                                           maxlength="10" data-limit="10">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Balance (Baki)</label>
+                                    <input type="number" class="form-control" name="bank3_balance" 
+                                           maxlength="10" data-limit="10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-success btn-lg" id="generateBtn">
+                            <i class="bi bi-file-earmark-pdf"></i> Generate PDF
+                        </button>
+                    </div>
+
+                    <!-- Loading Spinner -->
+                    <div id="loadingSpinner" class="text-center mt-3" style="display: none;">
+                        <div class="spinner-border text-success" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Generating PDF...</p>
+                    </div>
+
+                    <!-- Error Alert -->
+                    <div id="errorAlert" class="alert alert-danger mt-3" role="alert" style="display: none;"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/pembiayaan.js') }}"></script>
+{% endblock %}

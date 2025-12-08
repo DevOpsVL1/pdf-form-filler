@@ -1,0 +1,22 @@
+2025-12-08 04:03:31,878 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.19:5000
+2025-12-08 04:03:31,879 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-08 12:15:18,370 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.19:5000
+2025-12-08 12:15:18,370 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-08 12:15:29,233 - werkzeug - INFO - 127.0.0.1 - - [08/Dec/2025 12:15:29] "GET / HTTP/1.1" 200 -
+2025-12-08 12:15:29,334 - werkzeug - INFO - 127.0.0.1 - - [08/Dec/2025 12:15:29] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-12-08 12:15:29,484 - werkzeug - INFO - 127.0.0.1 - - [08/Dec/2025 12:15:29] "GET /static/js/form-conditionals.js HTTP/1.1" 200 -
+2025-12-08 12:15:29,801 - werkzeug - INFO - 127.0.0.1 - - [08/Dec/2025 12:15:29] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-12-08 12:15:36,229 - werkzeug - INFO - 127.0.0.1 - - [08/Dec/2025 12:15:36] "GET /cif1 HTTP/1.1" 200 -
+2025-12-08 12:15:36,517 - werkzeug - INFO - 127.0.0.1 - - [08/Dec/2025 12:15:36] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-12-08 12:15:36,548 - werkzeug - INFO - 127.0.0.1 - - [08/Dec/2025 12:15:36] "GET /static/js/cif1.js HTTP/1.1" 200 -
+2025-12-08 12:15:36,549 - werkzeug - INFO - 127.0.0.1 - - [08/Dec/2025 12:15:36] "[36mGET /static/js/form-conditionals.js HTTP/1.1[0m" 304 -
+2025-12-08 12:15:49,276 - __main__ - INFO - Received CIF-1 form submission
+2025-12-08 12:15:49,277 - __main__ - INFO - Starting PDF generation...
+2025-12-08 12:15:49,786 - __main__ - INFO - PDF generation completed successfully
+2025-12-08 12:15:49,987 - werkzeug - INFO - 127.0.0.1 - - [08/Dec/2025 12:15:49] "POST /api/generate/cif1 HTTP/1.1" 200 -
